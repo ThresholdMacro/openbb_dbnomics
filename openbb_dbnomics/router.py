@@ -8,7 +8,7 @@ from openbb_core.app.provider_interface import (ExtraParams, ProviderChoices,
 from openbb_core.app.query import Query
 from openbb_core.app.router import Router
 from pydantic import BaseModel, create_model, Field
-from fastapi import APIRouter, Query
+from fastapi import Query
 from openbb_dbnomics.utils.providers import DBNomicsClient
 from fastapi.middleware.cors import CORSMiddleware
 import re
@@ -19,60 +19,28 @@ from fastapi.responses import JSONResponse
 import json
 from datetime import datetime
 import numpy as np
+from openbb_dbnomics.dashboard import router as dashboard_router
 
+# Main OpenBB router
 router = Router(prefix="")
+# API router for endpoints
+api_router = Router(prefix="")
 client = DBNomicsClient()
 
+# Include dashboard router in the API router
+api_router.include_router(dashboard_router, prefix="/dashboard")
 
-@router.command(methods=["GET"])
-async def get_example(symbol: str = "AAPL") -> OBBject[dict]:
-    """Get options data."""
-    base_url = "https://www.cboe.com/education/tools/trade-optimizer/symbol-info"
-
-    response = requests.get(base_url + f"?symbol={symbol}", timeout=5).json()
-    return OBBject(results=response["details"])
-
-
-@router.command(methods=["POST"])
-async def post_example(
-    data: dict,
-    bid_col: str = "bid",
-    ask_col: str = "ask",
-) -> OBBject[dict]:
-    """Calculate mid and spread."""
-    bid = data[bid_col]
-    ask = data[ask_col]
-    mid = (bid + ask) / 2
-    spread = ask - bid
-
-    return OBBject(results={"mid": mid, "spread": spread})
-
-
-# pylint: disable=unused-argument
-@router.command(model="Example")
-async def model_example(
-    cc: CommandContext,
-    provider_choices: ProviderChoices,
-    standard_params: StandardParams,
-    extra_params: ExtraParams,
-) -> OBBject[BaseModel]:
-    """Example Data."""
-    return await OBBject.from_query(Query(**locals()))
-
-
-router = APIRouter()
-
-@router.get("/providers", tags=["Providers"])
+@api_router.api_router.get("/providers", tags=["Providers"])
 def get_providers():
     client = DBNomicsClient()
     return client.get_providers()
 
-@router.get("/datasets", tags=["Datasets"])
+@api_router.api_router.get("/datasets", tags=["Datasets"])
 def get_datasets(search: str = Query(..., description="Search term for datasets")):
     client = DBNomicsClient()
     return client.get_datasets(search_term=search)
 
-@router.get("/series", tags=["Series"])
+@api_router.api_router.get("/series", tags=["Series"])
 def get_series(
     provider: str = Query(..., description="Provider code, e.g., 'IMF'"),
     dataset: str = Query(..., description="Dataset code, e.g., 'IFS'"),
@@ -96,7 +64,7 @@ def get_series(
     # print("Unique REF_AREA codes in first 10,000:", ref_areas)
     return series
 
-@router.get("/series/ref_areas", tags=["Series"])
+@api_router.api_router.get("/series/ref_areas", tags=["Series"])
 def get_ref_areas(
     provider: str = Query(..., description="Provider code, e.g., 'IMF'"),
     dataset: str = Query(..., description="Dataset code, e.g., 'IFS'")
@@ -109,7 +77,7 @@ def get_ref_areas(
     ref_areas = sorted(ref_areas, key=lambda x: x["name"])
     return ref_areas
 
-@router.get("/series/indicators", tags=["Series"])
+@api_router.api_router.get("/series/indicators", tags=["Series"])
 def get_indicators(
     provider: str = Query(..., description="Provider code, e.g., 'IMF'"),
     dataset: str = Query(..., description="Dataset code, e.g., 'IFS'")
@@ -122,7 +90,7 @@ def get_indicators(
     indicators = sorted(indicators, key=lambda x: x["name"])
     return indicators
 
-@router.get("/series/table", response_model=list)
+@api_router.api_router.get("/series/table", response_model=list)
 def get_series_table(
     provider: str = Query(...),
     dataset: str = Query(...),
@@ -142,7 +110,7 @@ def get_series_table(
     # Convert each record (dict) to a model instance
     return [DynamicData.model_validate(row) for row in records]
 
-@router.get("/series/chart")
+@api_router.api_router.get("/series/chart")
 def get_series_chart(
     provider: str = Query(...),
     dataset: str = Query(...),
@@ -277,3 +245,6 @@ def apply_change(df, change_type, freq):
                 df[col] = df[col].astype(float).pct_change(periods=periods) * 100
     # else: do nothing for 'level'
     return df
+
+# Register the API router with the main OpenBB router
+router.include_router(api_router)

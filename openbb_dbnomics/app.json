@@ -1,0 +1,195 @@
+{
+  "name": "DBNomics Data Explorer",
+  "description": "Comprehensive financial and economic data discovery and visualization powered by DBNomics.world",
+  "version": "1.0.0",
+  "author": "OpenBB Community",
+  "category": "Data & Analytics",
+  "tags": ["economic data", "financial data", "time series", "visualization", "IMF", "World Bank"],
+  "logo": "https://raw.githubusercontent.com/ThresholdMacro/ThresholdMacro/main/Images/Sphere_no_letters.png",
+  "icon": "📊",
+  "color": "#1e3142",
+  "repository": "https://github.com/yourusername/openbb-dbnomics",
+  "website": "https://dbnomics.world",
+  "license": "MIT",
+  "dependencies": {
+    "python": ">=3.8",
+    "openbb": ">=4.0.0"
+  },
+  "features": [
+    "150+ data providers (IMF, World Bank, ECB, BIS, etc.)",
+    "Multi-indicator time series analysis",
+    "Interactive charts with multiple chart types",
+    "Year-over-Year and Quarter-over-Quarter change calculations",
+    "Professional charting with custom theming",
+    "Real-time data validation",
+    "Comprehensive data discovery tools"
+  ],
+  "dashboard": {
+    "name": "DBNomics Data Explorer",
+    "description": "Complete financial data discovery and analysis dashboard",
+    "layout": "grid",
+    "defaultView": "discovery",
+    "widgets": [
+      {
+        "id": "providers",
+        "name": "Data Providers",
+        "type": "table",
+        "endpoint": "/providers",
+        "position": { "x": 0, "y": 0, "w": 12, "h": 8 },
+        "description": "Browse available data providers"
+      },
+      {
+        "id": "datasets",
+        "name": "Dataset Search",
+        "type": "table",
+        "endpoint": "/datasets",
+        "position": { "x": 12, "y": 0, "w": 12, "h": 8 },
+        "description": "Search datasets by provider or keyword"
+      },
+      {
+        "id": "regions",
+        "name": "Available Regions",
+        "type": "table",
+        "endpoint": "/series/ref_areas",
+        "position": { "x": 0, "y": 8, "w": 12, "h": 8 },
+        "description": "View available countries/regions"
+      },
+      {
+        "id": "indicators",
+        "name": "Available Indicators",
+        "type": "table",
+        "endpoint": "/series/indicators",
+        "position": { "x": 12, "y": 8, "w": 12, "h": 8 },
+        "description": "Browse available indicators"
+      },
+      {
+        "id": "series_table",
+        "name": "Time Series Table",
+        "type": "table",
+        "endpoint": "/series/table",
+        "position": { "x": 0, "y": 16, "w": 12, "h": 10 },
+        "description": "Display aligned time series data"
+      },
+      {
+        "id": "series_chart",
+        "name": "Dynamic Chart",
+        "type": "chart",
+        "endpoint": "/series/chart",
+        "position": { "x": 12, "y": 16, "w": 12, "h": 10 },
+        "description": "Create customizable charts"
+      }
+    ],
+    "views": {
+      "discovery": {
+        "name": "Data Discovery",
+        "description": "Explore data providers and datasets",
+        "widgets": ["providers", "datasets"]
+      },
+      "selection": {
+        "name": "Data Selection",
+        "description": "Choose regions and indicators",
+        "widgets": ["regions", "indicators"]
+      },
+      "analysis": {
+        "name": "Data Analysis",
+        "description": "Visualize and analyze time series data",
+        "widgets": ["series_table", "series_chart"]
+      },
+      "full": {
+        "name": "Full Dashboard",
+        "description": "Complete data exploration workflow",
+        "widgets": ["providers", "datasets", "regions", "indicators", "series_table", "series_chart"]
+      }
+    }
+  },
+  "quickStart": {
+    "title": "Get Started with DBNomics",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Browse Providers",
+        "description": "Start by exploring available data providers like IMF, World Bank, and ECB",
+        "action": "Click on 'Data Providers' widget"
+      },
+      {
+        "step": 2,
+        "title": "Search Datasets",
+        "description": "Find datasets within your chosen provider (e.g., IFS for IMF)",
+        "action": "Use the 'Dataset Search' widget"
+      },
+      {
+        "step": 3,
+        "title": "Select Region & Indicators",
+        "description": "Choose your country/region and economic indicators",
+        "action": "Use 'Available Regions' and 'Available Indicators' widgets"
+      },
+      {
+        "step": 4,
+        "title": "Visualize Data",
+        "description": "Create charts and tables with your selected data",
+        "action": "Configure and use the 'Dynamic Chart' widget"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "US GDP Analysis",
+      "description": "Compare US GDP indicators over time",
+      "config": {
+        "provider": "IMF",
+        "dataset": "IFS",
+        "freq": "Q",
+        "ref_area": "US",
+        "indicators": "NGDP_D_SA_IX,NGDP_SA_XDC",
+        "chart": "line",
+        "change": "yoy"
+      }
+    },
+    {
+      "name": "Inflation Comparison",
+      "description": "Compare inflation rates across countries",
+      "config": {
+        "provider": "IMF",
+        "dataset": "IFS",
+        "freq": "M",
+        "ref_area": "US,EU,JP",
+        "indicators": "PCPI_PC_PP_PT",
+        "chart": "line",
+        "change": "yoy"
+      }
+    },
+    {
+      "name": "Employment Trends",
+      "description": "Analyze employment data trends",
+      "config": {
+        "provider": "IMF",
+        "dataset": "IFS",
+        "freq": "Q",
+        "ref_area": "US",
+        "indicators": "LUR_PT",
+        "chart": "bar",
+        "change": "level"
+      }
+    }
+  ],
+  "documentation": {
+    "overview": "DBNomics Data Explorer provides comprehensive access to economic and financial time series data from over 150 international data providers.",
+    "endpoints": {
+      "/providers": "List all available data providers",
+      "/datasets": "Search datasets by provider or keyword",
+      "/series/ref_areas": "Get available regions for a dataset",
+      "/series/indicators": "Get available indicators for a dataset",
+      "/series/table": "Get aligned time series data as table",
+      "/series/chart": "Get time series data as chart"
+    },
+    "parameters": {
+      "provider": "Data provider code (e.g., IMF, WB, ECB)",
+      "dataset": "Dataset code within provider (e.g., IFS, WEO)",
+      "freq": "Data frequency (Q=Quarterly, M=Monthly, A=Annual)",
+      "ref_area": "Country/region code (e.g., US, EU, JP)",
+      "indicators": "Comma-separated list of indicator codes",
+      "chart": "Chart type (line, bar, regression, distribution, scatter)",
+      "change": "Change calculation (level, yoy, qoq)"
+    }
+  }
+} 

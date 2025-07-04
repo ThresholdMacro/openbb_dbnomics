@@ -172,6 +172,31 @@ Result: Aligned time series showing:
 ## 🚀 Getting Started
 
 ### **Installation**
+
+#### **As an OpenBB Platform App**
+This extension is designed to work as a native OpenBB Platform app with its own dashboard:
+
+**Option 1: Automated Installation (Recommended)**
+```bash
+# Run the installation script
+python install.py
+```
+The script will:
+- Detect your OpenBB Platform extensions directory
+- Install all dependencies
+- Copy the app to the correct location
+- Create a launcher script for standalone mode
+
+**Option 2: Manual Installation**
+1. **Clone to Extensions Directory**: Place this repository in your OpenBB Platform extensions folder
+2. **Install Dependencies**: `pip install -r requirements.txt`
+3. **App Discovery**: The app will appear in the OpenBB Platform Apps section with its own logo
+4. **Launch Dashboard**: Click on the "DBNomics Data Explorer" app to open the dedicated dashboard
+5. **Complete Workflow**: Use the dashboard's guided workflow to discover and analyze data
+
+#### **Standalone Development**
+For development and testing:
+
 ```bash
 # Install the extension
 pip install openbb-dbnomics
@@ -180,7 +205,30 @@ pip install openbb-dbnomics
 git clone <repository>
 cd openbb_dbnomics
 pip install -e .
+
+# Run standalone server
+uvicorn openbb_dbnomics.openbb:app --reload
 ```
+
+### **App Features**
+
+#### **Dedicated Dashboard**
+- **Multi-View Layout**: Discovery, Selection, Analysis, and Full Dashboard views
+- **Guided Workflow**: Step-by-step data exploration process
+- **Interactive Widgets**: Real-time data browsing and visualization
+- **Professional Theming**: Custom color scheme and branding
+
+#### **Dashboard Views**
+1. **Discovery View**: Browse providers and search datasets
+2. **Selection View**: Choose regions and indicators
+3. **Analysis View**: Create charts and tables
+4. **Full Dashboard**: Complete workflow with all widgets
+
+#### **Quick Start Examples**
+The dashboard includes pre-configured examples:
+- **US GDP Analysis**: Compare GDP indicators over time
+- **Inflation Comparison**: Track inflation across countries
+- **Employment Trends**: Monitor labor market data
 
 ### **Basic Usage**
 ```python

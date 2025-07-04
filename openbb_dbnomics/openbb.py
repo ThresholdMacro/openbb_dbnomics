@@ -21,7 +21,45 @@ app.add_middleware(
 )
 # --- End CORS middleware ---
 
-app.include_router(router)
+app.include_router(router.api_router)
+
+@app.get("/app.json")
+def app_json():
+    """Get app configuration for OpenBB Platform."""
+    return JSONResponse({
+        "name": "DBNomics Data Explorer",
+        "description": "Comprehensive financial and economic data discovery and visualization powered by DBNomics.world",
+        "version": "1.0.0",
+        "author": "OpenBB Community",
+        "category": "Data & Analytics",
+        "tags": ["economic data", "financial data", "time series", "visualization", "IMF", "World Bank"],
+        "logo": "https://raw.githubusercontent.com/ThresholdMacro/ThresholdMacro/main/Images/Sphere_no_letters.png",
+        "icon": "📊",
+        "color": "#1e3142",
+        "repository": "https://github.com/yourusername/openbb-dbnomics",
+        "website": "https://dbnomics.world",
+        "license": "MIT",
+        "dependencies": {
+            "python": ">=3.8",
+            "openbb": ">=4.0.0"
+        },
+        "features": [
+            "150+ data providers (IMF, World Bank, ECB, BIS, etc.)",
+            "Multi-indicator time series analysis",
+            "Interactive charts with multiple chart types",
+            "Year-over-Year and Quarter-over-Quarter change calculations",
+            "Professional charting with custom theming",
+            "Real-time data validation",
+            "Comprehensive data discovery tools"
+        ],
+        "dashboard": {
+            "name": "DBNomics Data Explorer",
+            "description": "Complete financial data discovery and analysis dashboard",
+            "layout": "grid",
+            "defaultView": "discovery",
+            "endpoint": "/dashboard/config"
+        }
+    })
 
 @app.get("/widgets.json")
 def widgets_json():

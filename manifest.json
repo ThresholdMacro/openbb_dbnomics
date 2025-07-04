@@ -1,0 +1,149 @@
+{
+  "name": "DBNomics Data Explorer",
+  "description": "Comprehensive financial and economic data discovery and visualization powered by DBNomics.world",
+  "version": "1.0.0",
+  "author": "OpenBB Community",
+  "category": "Data & Analytics",
+  "tags": ["economic data", "financial data", "time series", "visualization", "IMF", "World Bank"],
+  "logo": "openbb_dbnomics/assets/logo.svg",
+  "icon": "📊",
+  "color": "#1e3142",
+  "repository": "https://github.com/yourusername/openbb-dbnomics",
+  "website": "https://dbnomics.world",
+  "license": "MIT",
+  "dependencies": {
+    "python": ">=3.8",
+    "openbb": ">=4.0.0"
+  },
+  "entry_point": "openbb_dbnomics.openbb:app",
+  "features": [
+    "150+ data providers (IMF, World Bank, ECB, BIS, etc.)",
+    "Multi-indicator time series analysis",
+    "Interactive charts with multiple chart types",
+    "Year-over-Year and Quarter-over-Quarter change calculations",
+    "Professional charting with custom theming",
+    "Real-time data validation",
+    "Comprehensive data discovery tools"
+  ],
+  "dashboard": {
+    "name": "DBNomics Data Explorer",
+    "description": "Complete financial data discovery and analysis dashboard",
+    "layout": "grid",
+    "defaultView": "discovery",
+    "endpoint": "/dashboard/config"
+  },
+  "widgets": [
+    {
+      "name": "Data Providers",
+      "description": "Browse available data providers",
+      "type": "table",
+      "endpoint": "/providers",
+      "category": "data"
+    },
+    {
+      "name": "Dataset Search",
+      "description": "Search datasets by provider or keyword",
+      "type": "table",
+      "endpoint": "/datasets",
+      "category": "data"
+    },
+    {
+      "name": "Available Regions",
+      "description": "View available countries/regions",
+      "type": "table",
+      "endpoint": "/series/ref_areas",
+      "category": "data"
+    },
+    {
+      "name": "Available Indicators",
+      "description": "Browse available indicators",
+      "type": "table",
+      "endpoint": "/series/indicators",
+      "category": "data"
+    },
+    {
+      "name": "Time Series Table",
+      "description": "Display aligned time series data",
+      "type": "table",
+      "endpoint": "/series/table",
+      "category": "data"
+    },
+    {
+      "name": "Dynamic Chart",
+      "description": "Create customizable charts",
+      "type": "chart",
+      "endpoint": "/series/chart",
+      "category": "chart"
+    }
+  ],
+  "quickStart": {
+    "title": "Get Started with DBNomics",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Browse Providers",
+        "description": "Start by exploring available data providers like IMF, World Bank, and ECB",
+        "action": "Click on 'Data Providers' widget"
+      },
+      {
+        "step": 2,
+        "title": "Search Datasets",
+        "description": "Find datasets within your chosen provider (e.g., IFS for IMF)",
+        "action": "Use the 'Dataset Search' widget"
+      },
+      {
+        "step": 3,
+        "title": "Select Region & Indicators",
+        "description": "Choose your country/region and economic indicators",
+        "action": "Use 'Available Regions' and 'Available Indicators' widgets"
+      },
+      {
+        "step": 4,
+        "title": "Visualize Data",
+        "description": "Create charts and tables with your selected data",
+        "action": "Configure and use the 'Dynamic Chart' widget"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "US GDP Analysis",
+      "description": "Compare US GDP indicators over time",
+      "config": {
+        "provider": "IMF",
+        "dataset": "IFS",
+        "freq": "Q",
+        "ref_area": "US",
+        "indicators": "NGDP_D_SA_IX,NGDP_SA_XDC",
+        "chart": "line",
+        "change": "yoy"
+      }
+    },
+    {
+      "name": "Inflation Comparison",
+      "description": "Compare inflation rates across countries",
+      "config": {
+        "provider": "IMF",
+        "dataset": "IFS",
+        "freq": "M",
+        "ref_area": "US,EU,JP",
+        "indicators": "PCPI_PC_PP_PT",
+        "chart": "line",
+        "change": "yoy"
+      }
+    },
+    {
+      "name": "Employment Trends",
+      "description": "Analyze employment data trends",
+      "config": {
+        "provider": "IMF",
+        "dataset": "IFS",
+        "freq": "Q",
+        "ref_area": "US",
+        "indicators": "LUR_PT",
+        "chart": "bar",
+        "change": "level"
+      }
+    }
+  ]
+} 
