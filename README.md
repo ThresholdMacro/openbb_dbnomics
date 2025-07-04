@@ -85,39 +85,57 @@ This OpenBB Platform extension provides comprehensive access to **DBNomics.world
 
 ## 📊 Widget Ecosystem
 
+### **Dashboard Layout**
+The dashboard is organized in a **2-column, 3-row grid** with all widgets having uniform sizing:
+
+```
+┌─────────────────────┬─────────────────────┐
+│   Data Providers    │   Dataset Search    │ Row 1
+│   (x=0, y=0)       │   (x=16, y=0)      │
+│   w=20, h=15       │   w=20, h=15       │
+├─────────────────────┼─────────────────────┤
+│  Available Regions  │ Available Indicators│ Row 2
+│   (x=0, y=16)      │   (x=16, y=16)     │
+│   w=20, h=15       │   w=20, h=15       │
+├─────────────────────┼─────────────────────┤
+│  Time Series Table  │   Dynamic Chart     │ Row 3
+│   (x=0, y=31)      │   (x=21, y=31)     │
+│   w=20, h=15       │   w=20, h=15       │
+└─────────────────────┴─────────────────────┘
+```
+
 ### **Data Discovery Widgets**
-1. **Providers Browser** (`/providers`)
-   - Lists all 150+ data providers
-   - Enables exploration of available data sources
+1. **Data Providers** (`/providers`)
+   - **Position**: x=0, y=0, w=20, h=15
+   - **Function**: Lists all 150+ data providers
+   - **Default**: Shows complete provider catalog
 
 2. **Dataset Search** (`/datasets`)
-   - Searches datasets within providers
-   - Keyword-based filtering for discovery
-
-3. **Series Explorer** (`/series`)
-   - Discovers available time series
-   - Filters by region and name patterns
-   - Shows series metadata and structure
+   - **Position**: x=16, y=0, w=20, h=15
+   - **Function**: Searches datasets within providers
+   - **Default**: Search="IMF" (International Monetary Fund)
 
 ### **Series Construction Widgets**
-4. **Region Selector** (`/series/ref_areas`)
-   - Shows valid country/region codes for selected dataset
-   - Enables precise series targeting
+3. **Available Regions** (`/series/ref_areas`)
+   - **Position**: x=0, y=16, w=20, h=15
+   - **Function**: Shows valid country/region codes
+   - **Default**: provider="IMF", dataset="IFS"
 
-5. **Indicator Browser** (`/series/indicators`)
-   - Lists available indicators for selected dataset
-   - Facilitates multi-indicator selection
+4. **Available Indicators** (`/series/indicators`)
+   - **Position**: x=16, y=16, w=20, h=15
+   - **Function**: Lists available indicators
+   - **Default**: provider="IMF", dataset="IFS"
 
 ### **Data Visualization Widgets**
-6. **Time Series Table** (`/series/table`)
-   - Displays aligned multi-indicator data
-   - Dynamic column generation based on selected indicators
-   - Pydantic model-based structure for OpenBB compatibility
+5. **Time Series Table** (`/series/table`)
+   - **Position**: x=0, y=31, w=20, h=15
+   - **Function**: Displays aligned multi-indicator data
+   - **Default**: provider="IMF", dataset="IFS", freq="Q", ref_area="US", indicators="NGDP_D_SA_IX,NGDP_SA_XDC"
 
-7. **Dynamic Chart** (`/series/chart`)
-   - Multi-indicator visualization with customizable chart types
-   - Change calculations (Level, YoY, QoQ)
-   - Professional styling with branding and annotations
+6. **Dynamic Chart** (`/series/chart`)
+   - **Position**: x=21, y=31, w=20, h=15
+   - **Function**: Multi-indicator visualization
+   - **Default**: Same as table + chart="line", change="level", startdate="1990-01-01"
 
 ---
 

@@ -2,17 +2,25 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from openbb_dbnomics.router import router
 from fastapi.responses import JSONResponse
+from openbb_core.app.model.extension import Extension
 import requests
 import pandas as pd
 
-app = FastAPI(
+# Create the Extension object for obbject registration
+app = Extension(
+    name="openbb_dbnomics",
+    description="Comprehensive financial and economic data discovery and visualization powered by DBNomics.world"
+)
+
+# Create the FastAPI app for the API
+api_app = FastAPI(
     title="OpenBB DBNomics Extension",
     description="API for DBNomics data via OpenBB Platform",
     version="0.1.0"
 )
 
 # --- CORS middleware ---
-app.add_middleware(
+api_app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # For local dev, "*" is fine. For production, restrict this.
     allow_credentials=True,
@@ -21,9 +29,9 @@ app.add_middleware(
 )
 # --- End CORS middleware ---
 
-app.include_router(router.api_router)
+api_app.include_router(router.api_router)
 
-@app.get("/app.json")
+@api_app.get("/app.json")
 def app_json():
     """Get app configuration for OpenBB Platform."""
     return JSONResponse({
@@ -61,7 +69,7 @@ def app_json():
         }
     })
 
-@app.get("/widgets.json")
+@api_app.get("/widgets.json")
 def widgets_json():
     return JSONResponse([
         {
@@ -142,7 +150,7 @@ def widgets_json():
                 { "paramName": "dataset", "label": "Dataset", "value": "IFS", "show": True },
                 { "paramName": "freq", "label": "Frequency", "value": "Q", "show": True },
                 { "paramName": "ref_area", "label": "Reference Area", "value": "US", "show": True },
-                { "paramName": "indicators", "label": "Indicators (comma-separated)", "value": "NGDP_SA_XDC,NGDP_R_SA_XDC", "show": True }
+                { "paramName": "indicators", "label": "Indicators (comma-separated)", "value": "NGDP_D_SA_IX,NGDP_SA_XDC", "show": True }
             ],
             "gridData": {"x": 0, "y": 31, "w": 20, "h": 15}
         },

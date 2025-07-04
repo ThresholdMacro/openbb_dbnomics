@@ -15,8 +15,8 @@ def get_dashboard_config():
         "version": "1.0.0",
         "layout": {
             "type": "grid",
-            "columns": 24,
-            "rows": 26,
+            "columns": 40,
+            "rows": 50,
             "gap": 16,
             "padding": 16
         },
@@ -53,7 +53,7 @@ def get_dashboard_config():
                 "description": "Browse available data providers",
                 "type": "table",
                 "endpoint": "/providers",
-                "position": {"x": 0, "y": 0, "w": 12, "h": 8},
+                "position": {"x": 0, "y": 0, "w": 20, "h": 15},
                 "config": {
                     "title": "Available Data Providers",
                     "subtitle": "Browse 150+ international data sources",
@@ -66,7 +66,7 @@ def get_dashboard_config():
                 "description": "Search datasets by provider or keyword",
                 "type": "table", 
                 "endpoint": "/datasets",
-                "position": {"x": 12, "y": 0, "w": 12, "h": 8},
+                "position": {"x": 16, "y": 0, "w": 20, "h": 15},
                 "config": {
                     "title": "Dataset Search",
                     "subtitle": "Find datasets within providers",
@@ -79,7 +79,7 @@ def get_dashboard_config():
                 "description": "View available countries/regions",
                 "type": "table",
                 "endpoint": "/series/ref_areas", 
-                "position": {"x": 0, "y": 8, "w": 12, "h": 8},
+                "position": {"x": 0, "y": 16, "w": 20, "h": 15},
                 "config": {
                     "title": "Available Regions",
                     "subtitle": "Countries and regions for selected dataset",
@@ -93,7 +93,7 @@ def get_dashboard_config():
                 "description": "Browse available indicators",
                 "type": "table",
                 "endpoint": "/series/indicators",
-                "position": {"x": 12, "y": 8, "w": 12, "h": 8},
+                "position": {"x": 16, "y": 16, "w": 20, "h": 15},
                 "config": {
                     "title": "Available Indicators", 
                     "subtitle": "Economic indicators for selected dataset",
@@ -107,7 +107,7 @@ def get_dashboard_config():
                 "description": "Display aligned time series data",
                 "type": "table",
                 "endpoint": "/series/table",
-                "position": {"x": 0, "y": 16, "w": 12, "h": 10},
+                "position": {"x": 0, "y": 31, "w": 20, "h": 15},
                 "config": {
                     "title": "Time Series Data",
                     "subtitle": "Aligned multi-indicator time series",
@@ -128,7 +128,7 @@ def get_dashboard_config():
                 "description": "Create customizable charts",
                 "type": "chart",
                 "endpoint": "/series/chart",
-                "position": {"x": 12, "y": 16, "w": 12, "h": 10},
+                "position": {"x": 21, "y": 31, "w": 20, "h": 15},
                 "config": {
                     "title": "Time Series Chart",
                     "subtitle": "Interactive multi-indicator visualization",

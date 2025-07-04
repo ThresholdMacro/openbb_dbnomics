@@ -22,3 +22,6 @@ openbb_dbnomics = "openbb_dbnomics.router:router"
 
 [tool.poetry.plugins."openbb_provider_extension"]
 openbb_dbnomics = "openbb_dbnomics.provider:provider"
+
+[tool.poetry.plugins."openbb_obbject_extension"]
+openbb_dbnomics = "openbb_dbnomics.openbb:app"
