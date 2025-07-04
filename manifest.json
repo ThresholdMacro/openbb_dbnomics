@@ -8,7 +8,7 @@
   "logo": "openbb_dbnomics/assets/logo.svg",
   "icon": "📊",
   "color": "#1e3142",
-  "repository": "https://github.com/yourusername/openbb-dbnomics",
+          "repository": "https://github.com/ThresholdMacro/openbb_dbnomics",
   "website": "https://dbnomics.world",
   "license": "MIT",
   "dependencies": {
