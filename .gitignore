@@ -167,3 +167,8 @@ cython_debug/
 
 # VS Code project settings
 .vscode/
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
